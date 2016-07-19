@@ -1,0 +1,43 @@
+<ion-view title="Lista de notas">
+
+        <ion-header-bar class="bar bar-positive bar-subheader item-input-inset">
+                <label class="item-input-wrapper">
+                    <i class="icon ion-android-search placeholder-icon"></i>
+                    <input type="text" placeholder="Buscar" ng-model="search">
+                </label>
+
+        </ion-header-bar>
+        
+        <ion-content>
+
+        		<ion-list
+        			show-delete="shouldShowDelete"
+        		    show-reorder="shouldShowReorder"
+        		    can-swipe="listCanSwipe">
+        		  	<ion-item ng-repeat="nota in notas | filter:search">
+        		  		<div class="row">
+        		  			<div class="col col-80">
+        		  				<span style="color:#666; font-weight:bold;">{{nota.codigo}}</span>
+        		  			</div>
+        		  			<div class="col">
+        		  				<span style="color:teal">{{nota.data}} </span><br/>
+        		  				<span style="color:#666">{{nota.valor}}</span>
+        		  			</div>
+
+        		  		</div>
+
+        		  	<ion-option-button class="button-positive" ng-click="share(item)">
+        		      	Editar
+        		    </ion-option-button>
+
+        		    <ion-option-button class="button-energized" ng-click="edit(item)">
+        		      	Excluir
+        		    </ion-option-button>
+
+        		  </ion-item>
+        		</ion-list>
+
+        </ion-content>
+        <button class="button button-energized button-large float-button icon ion-android-add" ng-click="scan()"></button>
+
+</ion-view>
