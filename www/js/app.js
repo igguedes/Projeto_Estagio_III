@@ -17,49 +17,46 @@ var app = angular.module('InvoiceManager', ['ionic','ngCordova'])
         //StatusBar.styleDefault();
     }
   });
+})
+.factory('Main', function(){
+      var notasUpdate = 0;
+      var __hasRequestedList = false;
+      var __notas;
+
+      function __getUpdatesFromNotas(){
+          return notasUpdate;
+      }
+
+      function __setUpdateToNotas(){
+          notasUpdate += 1;
+      }
+
+      function __resetUpdatesFromNotas(){
+          notasUpdate = 0;
+      }
+
+      function __storeNotas(notas){
+          __notas = notas;
+      }
+
+      function __getNotas(){
+          return __notas;
+      }
+
+      return {
+          getUpdatesFromNotas: __getUpdatesFromNotas,
+          setUpdateToNotas: __setUpdateToNotas,
+          resetUpdatesFromNotas: __resetUpdatesFromNotas,
+          hasRequestedList : function(){
+              return __hasRequestedList;
+          },
+          requestList: function(){
+              __hasRequestedList = true;
+          },
+          getNotas: __getNotas,
+          storeNotas: function(notas){
+              __storeNotas(notas);
+          }
+
+      }
 });
-
-/* .controller('Teste',function($scope,$http,$cordovaActionSheet,$cordovaBarcodeScanner){
-    var options = {
-        title: 'What do you want with this image?',
-        buttonLabels: ['Share via Facebook', 'Share via Twitter'],
-        addCancelButtonWithLabel: 'Cancel',
-        androidEnableCancelButton : true,
-        winphoneEnableCancelButton : true,
-        addDestructiveButtonWithLabel : 'Delete it'
-      };
-
-    $scope.show = function(){
-
-    $cordovaActionSheet.show(options)
-          .then(function(btnIndex) {
-            var index = btnIndex;
-          });
-
-    }
-
-    var codigosDeBarras = [];
-
-    //192.168.0.110:4000
-    $scope.dados = [];
-
-    /* $scope.carregarDados = function(){
-        $http.get('http://api.postmon.com.br/v1/cep/63115030').success(function(response){
-            alert("carregou");
-            $scope.dados = response;
-        });
-    }
-
-    $scope.carregarDados();
-
-    $scope.scan = function(){
-      $cordovaBarcodeScanner
-      .scan()
-      .then(function(barcodeData) {
-        //alert(barcodeData.text)
-
-      }, function(error) {
-        alert(error);
-      });
-    }
-}) */

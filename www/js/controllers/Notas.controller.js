@@ -1,24 +1,67 @@
-app.controller('NotasCtrl', function($scope,$state,NotasService,$cordovaBarcodeScanner,NotasService){
-	$scope.shouldShowDelete = false;
- 	$scope.shouldShowReorder = false;
- 	$scope.listCanSwipe = true;
+app.controller('NotasCtrl', function($scope,$state,Main,NotasService,NotasService){
+		$scope.shouldShowDelete = false;
+ 		$scope.shouldShowReorder = false;
+ 		$scope.listCanSwipe = true;
 
-	$scope.notas = NotasService.listarNotas();
+		$scope.notas = [];
 
-  $scope.scan = function(){
-      $cordovaBarcodeScanner
-      .scan()
-      .then(function(barcodeData) {
-        	alert("Codigo escaneado " + barcodeData.text)
+		$scope.populateFormNota = function(){
+				var novaNota = NotasService.getNota();
+				$scope.chave = novaNota.chave;
+				$scope.cnpj = novaNota.cnpj;
+				$scope.dataEmissao = novaNota.dataEmissao;
+		}
 
-      }, function(error) {
-        alert(error);
-      });
+		$scope.listarNotas = function(){
+				//Verifica se ja foi feita alguma requisição e só faz outra caso haja alguma alteração no banco de dados
+				if(!Main.hasRequestedList() || Main.getUpdatesFromNotas() > 0){
+							NotasService.listarNotas().success(function(response){
+									$scope.notas = response.dados;
+									Main.requestList();
+									Main.resetUpdatesFromNotas();
+									Main.storeNotas($scope.notas);
+							});
+				}
+				else{
+						$scope.notas = Main.getNotas();
+				}
+
+
+		}
+
+		$scope.$on("$ionicView.afterEnter", function(){
+				if($state.is('cadastrarNota') || $state.is('editarNota')){
+						$scope.populateFormNota();
+				}
+				if($state.is('menu.home')){
+						$scope.listarNotas();
+				}
+		});
+
+
+
+  	$scope.scan = function(){
+				NotasService.scan();
     }
 
-		$scope.selectNota = function(nota){
+		$scope.editarNota = function(nota){
 				NotasService.setNota(nota);
-				//$state.go();
+				$state.go('editarNota');
+
+		}
+
+		$scope.excluirNota = function(idNota){
+				NotasService.excluirNota(idNota);
+				Main.setUpdateToNotas();
+		}
+
+		$scope.scan = function(){
+				NotasService.scan();
+		}
+
+		$scope.cadastrarNota = function(){
+				var novaNota = NotasService.getNota();
+				NotasService.cadastrarNota(novaNota);
 		}
 
 

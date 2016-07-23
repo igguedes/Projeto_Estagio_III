@@ -18,6 +18,12 @@ app.config(function($stateProvider, $urlRouterProvider){
           templateUrl: 'views/cadastrar-nota.html',
           controller: 'NotasCtrl'
       })
+      .state('editarNota',{
+          cache:false,
+          url:'/editar-nota',
+          templateUrl: 'views/editar-nota.html',
+          controller: 'NotasCtrl'
+      })
       .state('menu',{
       	  url:'/menu',
       	  abstract:true,

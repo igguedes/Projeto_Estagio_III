@@ -20,3 +20,10 @@
 	box-shadow: -2px 5px 20px #888888;
 	z-index: 99;
 }
+
+.long-text {
+		max-width: auto;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap
+}

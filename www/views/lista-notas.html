@@ -7,7 +7,7 @@
                 </label>
 
         </ion-header-bar>
-        
+
         <ion-content>
 
         		<ion-list
@@ -16,21 +16,21 @@
         		    can-swipe="listCanSwipe">
         		  	<ion-item ng-repeat="nota in notas | filter:search">
         		  		<div class="row">
-        		  			<div class="col col-80">
-        		  				<span style="color:#666; font-weight:bold;">{{nota.codigo}}</span>
+        		  			<div class="col col-80 long-text">
+        		  				<span style="color:#666; font-weight:bold;">{{nota.chave}}</span>
         		  			</div>
         		  			<div class="col">
-        		  				<span style="color:teal">{{nota.data}} </span><br/>
+        		  				<span style="color:teal">{{nota.dataEmissao}} </span><br/>
         		  				<span style="color:#666">{{nota.valor}}</span>
         		  			</div>
 
         		  		</div>
 
-        		  	<ion-option-button class="button-positive" ng-click="share(item)">
+        		  	<ion-option-button class="button" ng-click="editarNota(nota)">
         		      	Editar
         		    </ion-option-button>
 
-        		    <ion-option-button class="button-energized" ng-click="edit(item)">
+        		    <ion-option-button class="button-balanced" ng-click="excluirNota(nota)">
         		      	Excluir
         		    </ion-option-button>
 
