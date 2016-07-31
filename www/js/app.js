@@ -19,9 +19,40 @@ var app = angular.module('InvoiceManager', ['ionic','ngCordova'])
   });
 })
 .factory('Main', function(){
+      //TODAS AS CONFIGURAÇÕES GLOBAIS SERÃO DEFINIDAS AQUI
+      const SERVER = "http://192.168.0.108:3000";
       var notasUpdate = 0;
       var __hasRequestedList = false;
       var __notas;
+      //DADOS DE SESSAO DE USUARIO
+      var __idUsuario;
+      var __idEstabelecimeto = 0;
+      var __usuario;
+      var __token;
+
+      function __setUser(user){
+          __idUsuario = user.idUsuario;
+          __idEstabelecimeto = user.idEstabelecimento;
+          __usuario = user.login;
+          __token = user.token;
+      }
+
+      function __getUser(){
+
+          return {
+              idUsuario: __idUsuario,
+              idEstabelecimento: __idEstabelecimeto,
+              usuario: __usuario,
+              token: __token,
+              reset: function(){
+                  __idUsuario = "";
+                  __idEstabelecimeto = 0;
+                  __usuario = "";
+                  __token = "";
+              }
+          }
+      }
+
 
       function __getUpdatesFromNotas(){
           return notasUpdate;
@@ -43,7 +74,11 @@ var app = angular.module('InvoiceManager', ['ionic','ngCordova'])
           return __notas;
       }
 
+
       return {
+          getServer: function(){
+              return SERVER;
+          },
           getUpdatesFromNotas: __getUpdatesFromNotas,
           setUpdateToNotas: __setUpdateToNotas,
           resetUpdatesFromNotas: __resetUpdatesFromNotas,
@@ -56,7 +91,11 @@ var app = angular.module('InvoiceManager', ['ionic','ngCordova'])
           getNotas: __getNotas,
           storeNotas: function(notas){
               __storeNotas(notas);
-          }
+          },
+          setUser: function(user){
+              __setUser(user);
+          },
+          getUser: __getUser
 
       }
 });

@@ -1,4 +1,22 @@
-app.config(function($stateProvider, $urlRouterProvider){
+app.config(function($stateProvider, $urlRouterProvider, $httpProvider){
+
+  $httpProvider.interceptors.push(function($q,Main,$injector) {
+      return {
+          'request': function (config) {
+          config.headers = config.headers || {};
+          config.headers.Authorization = 'TOKEN ' + Main.getUser().token;
+          return config;
+      },
+      'responseError': function(response) {
+          if(response.status === 401 || response.status === 403) {
+              $injector.get('$state').transitionTo('login');
+          }
+          return $q.reject(response);
+          }
+      };
+    });
+
+
     $stateProvider
       .state('login',{
           url:'/login',

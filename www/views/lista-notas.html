@@ -3,7 +3,7 @@
         <ion-header-bar class="bar bar-positive bar-subheader item-input-inset">
                 <label class="item-input-wrapper">
                     <i class="icon ion-android-search placeholder-icon"></i>
-                    <input type="text" placeholder="Buscar" ng-model="search">
+                    <input type="text" placeholder="Buscar" ng-model="search" ng-model-options="{updateOn: 'default', debounce:{default:700}}">
                 </label>
 
         </ion-header-bar>
@@ -17,11 +17,11 @@
         		  	<ion-item ng-repeat="nota in notas | filter:search">
         		  		<div class="row">
         		  			<div class="col col-80 long-text">
-        		  				<span style="color:#666; font-weight:bold;">{{nota.chave}}</span>
+        		  				<span style="color:#666; font-weight:bold;">{{::nota.chave}}</span>
         		  			</div>
         		  			<div class="col">
-        		  				<span style="color:teal">{{nota.dataEmissao}} </span><br/>
-        		  				<span style="color:#666">{{nota.valor}}</span>
+        		  				<span style="color:teal">{{::nota.data_emissao}} </span><br/>
+        		  				<span style="color:#666">{{::nota.valor}}</span>
         		  			</div>
 
         		  		</div>

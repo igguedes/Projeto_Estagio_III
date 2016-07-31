@@ -27,3 +27,7 @@
 		text-overflow: ellipsis;
 		white-space: nowrap
 }
+
+input[type="text"]:disabled {
+		background-color: #FFF;
+}

@@ -13,27 +13,31 @@
             <div class="item item-divider">Dados da nota</div>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Chave</span>
-                <input type="text" placeholder="Chave com 44 digitos" ng-model="chave">
+                <input type="text" placeholder="Chave com 44 digitos" ng-model="nota.chave" disabled>
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">CNPJ do emissor</span>
-                <input type="text" placeholder="CNPJ" ng-model="cnpj">
+                <input type="text" placeholder="CNPJ" ng-model="nota.cnpj" disabled>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Emissor</span>
+                <input type="text" placeholder="Nome do emissor" ng-model="nota.emissor">
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Data de emissão</span>
-                <input type="text" placeholder="Data de emissão" ng-model="dataEmissao">
+                <input type="text" placeholder="Data de emissão" ng-model="nota.dataEmissao">
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Valor da nota</span>
-                <input type="text" placeholder="Valor da nota">
+                <input type="text" placeholder="Valor da nota" ng-model="nota.valor1">
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Repita o valor</span>
-                <input type="text" placeholder="Confirmar valor da nota">
+                <input type="text" placeholder="Confirmar valor da nota" ng-model="nota.valor2">
             </label>
 
             <div class="padding">
-                <button class="button button-block button-energized" style="margin-top:10px;">
+                <button class="button button-block button-energized" style="margin-top:10px;" ng-click="atualizarNota(nota)">
                     Salvar alterações
                   </button>
             </div>
